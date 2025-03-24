@@ -21,24 +21,17 @@ body {
     background-color: #f0f0f0;
     border: 1px solid #ddd;
     cursor: move;
-}
-
-.ranking-list li.dragging {
-    opacity: 0.5;
-    background-color: #ccc;
+    display: flex;
+    align-items: center;
 }
 
 .ranking-list li:hover {
     background-color: #e1e1e1;
 }
-#results {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-}
 
-#results h2 {
-    color: #333;
+.handle {
+    margin-right: 10px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 24px; /* Large enough for easy touch */
 }
-
