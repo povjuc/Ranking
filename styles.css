@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 350px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.ranking-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ranking-list li {
+    padding: 8px;
+    margin-bottom: 6px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    cursor: move;
+}
+
+.ranking-list li.dragging {
+    opacity: 0.5;
+    background-color: #ccc;
+}
+
+.ranking-list li:hover {
+    background-color: #e1e1e1;
+}
+#results {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+}
+
+#results h2 {
+    color: #333;
+}
+
