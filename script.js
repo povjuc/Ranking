@@ -2,31 +2,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const list = document.getElementById('rankingList');
     let draggedItem = null;
 
-    list.addEventListener('dragstart', (e) => {
+    // Function to handle the starting of dragging
+    function handleDragStart(e) {
         draggedItem = e.target;
         e.target.classList.add('dragging');
         setTimeout(() => e.target.style.visibility = 'hidden', 0);
-    });
+    }
 
-    list.addEventListener('dragend', (e) => {
-        e.target.classList.remove('dragging');
-        e.target.style.visibility = 'visible';
-    });
+    // Function to handle the ending of dragging
+    function handleDragEnd(e) {
+        if (draggedItem) {
+            draggedItem.classList.remove('dragging');
+            draggedItem.style.visibility = 'visible';
+            draggedItem = null;
+        }
+    }
 
-    list.addEventListener('dragover', (e) => {
+    // Function to handle sorting while dragging
+    function handleDragOver(e) {
         e.preventDefault();
-        const afterElement = getDragAfterElement(list, e.clientY);
+        const afterElement = getDragAfterElement(list, e.clientY || e.touches[0].clientY);
         if (afterElement) {
             afterElement.parentNode.insertBefore(draggedItem, afterElement);
-        } else {
+        } else if (draggedItem) {
             list.appendChild(draggedItem);
         }
-    });
+    }
 
-    list.addEventListener('dragenter', (e) => e.preventDefault());
+    // Attach events for desktop
+    list.addEventListener('dragstart', handleDragStart);
+    list.addEventListener('dragend', handleDragEnd);
+    list.addEventListener('dragover', handleDragOver);
 
-    list.addEventListener('dragleave', (e) => e.preventDefault());
+    // Attach events for mobile
+    list.addEventListener('touchstart', handleDragStart, {passive: true});
+    list.addEventListener('touchmove', handleDragOver, {passive: false});
+    list.addEventListener('touchend', handleDragEnd);
 
+    // Function to determine where to insert the dragged item
     function getDragAfterElement(container, y) {
         const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
 
@@ -41,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
+    // Function to handle submission and display results
     document.querySelector('button').addEventListener('click', submitRanking);
 });
 
